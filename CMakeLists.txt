@@ -9,7 +9,7 @@ project(EZ_ECS VERSION 1.0)
 file(GLOB_RECURSE EXAMPLE_SRC Example/*.cpp)
 add_executable(Example ${EXAMPLE_SRC})
 target_include_directories(Example PUBLIC 
-	${CMAKE_CURRENT_SOURCE_DIR}/EZ_ECS/include
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 #OUTPUT
