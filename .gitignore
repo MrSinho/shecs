@@ -128,3 +128,11 @@ build/.vs/EZ_ECS/v16/Solution.VC.db-shm
 build/.vs/EZ_ECS/v16/Solution.VC.db
 .vscode/settings.json
 build/.vs/EZ_ECS/v16/Browse.VC.opendb
+build/.vs/EZ_ECS/v16/.suo
+build/.vs/EZ_ECS/v16/Browse.VC.db
+build/.vs/EZ_ECS/v16/ipch/AutoPCH/b13911175e6b5755/EXAMPLE.ipch
+build/Example.dir/Debug/Example.Build.CppClean.log
+build/Example.dir/Debug/Example.vcxproj.FileListAbsolute.txt
+build/x64/Debug/ZERO_CHECK/ZERO_CHECK.Build.CppClean.log
+build/x64/Debug/ZERO_CHECK/ZERO_CHECK.log
+build/x64/Debug/ZERO_CHECK/ZERO_CHECK.vcxproj.FileListAbsolute.txt

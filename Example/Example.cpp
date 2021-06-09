@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 
+//max entities and max components can have any value, for the example i'll make them equal to 2
 #define MAX_ENTITIES 2
 #define MAX_COMPONENTS 2 //is the maximum number of component *types* used in total, in all ECSs, not for each object
 #include <EZ_ECS.hpp>
