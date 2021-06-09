@@ -123,3 +123,7 @@ build/.vs/UE_ECS/v16/ipch/AutoPCH/5fe6bec7556eef1d/UE_ECS.ipch
 build/.vs/UE_ECS/v16/Browse.VC.db
 build/.vs/UE_ECS/v16/.suo
 build/EZ_ECS.sln
+build/.vs/EZ_ECS/v16/Solution.VC.db-wal
+build/.vs/EZ_ECS/v16/Solution.VC.db-shm
+build/.vs/EZ_ECS/v16/Solution.VC.db
+.vscode/settings.json
