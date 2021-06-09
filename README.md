@@ -16,7 +16,10 @@ Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned 
 ```cpp
 #define EZ_ECS_MAX_ENTITIES 64
 #define EZ_ECS_MAX_COMPONENTS 128
+#include <EZ_ECS/include/EZ_ECS.hpp>
 ``` 
+
+### Create an entity and add a component
 
 Define your components and use the following functions to create an entity, add and remove components from the entity.
 
@@ -27,9 +30,18 @@ struct MyComponent {
 
 uint32_t entity = EZ_ECS::CreateEntity();
 EZ_ECS::AddComponent<MyComponent>(entity);
+
+
 EZ_ECS::RemoveComponent<MyComponent>(entity);
 bool hascomp = EZ_ECS::HasComponent<MyComponent>(entity);
 
 ```
 
-## A bit more
+### Accessing your components
+
+```cpp
+MyComponent *mycomp = EZ_ECS::GetComponent<MyComponent>(entity);
+
+```
+
+If you want to get an 
