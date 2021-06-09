@@ -50,7 +50,12 @@ int main() {
 	EZ_ECS::AddComponent<Transform>(entity1);
 	std::cout << "entity1 has Transform: " << EZ_ECS::HasComponent<Transform>(entity1) << std::endl;
 
-	std::cout << EZ_ECS::GetComponent<Transform>(entity1)->position[0] << std::endl;
+	EZ_ECS::GetComponent<Transform>(entity1)->position[0] = 15;
+
+	std::cout << "Accessing all transforms: " << std::endl;
+	for (Transform *trans : EZ_ECS::View<Transform>()) {
+		std::cout << "		  	  " <<  trans->position[0] << std::endl;
+	}
 
 	std::cin.get();
 
