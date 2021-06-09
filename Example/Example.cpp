@@ -30,11 +30,6 @@ int main() {
 	std::cout << "Entity ID: " << entity << std::endl;
 	std::cout << "Entity ID: " << entity1 << std::endl;
 
-	
-	std::cout << "Component ID: " << EZ_ECS::GetComponentID<Transform>() << std::endl;
-	std::cout << "Component ID: " << EZ_ECS::GetComponentID<Transform>() << std::endl;
-	std::cout << "Component ID: " << EZ_ECS::GetComponentID<Mesh>() << std::endl;
-
 	EZ_ECS::AddComponent<Transform>(entity);
 
 	std::cout << "entity has Transform:  " << EZ_ECS::HasComponent<Transform>(entity) << std::endl;
