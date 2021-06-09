@@ -9,30 +9,18 @@
 #endif
 
 #ifndef MAX_COMPONENTS
-    #define MAX_COMPONENTS 5
+    #define MAX_COMPONENTS 10
 #endif
 
 #define CHECK_ENTITIES_SIZE(entity) if (entity == MAX_ENTITIES) { throw std::runtime_error("reached maximum number of entities!!"); }
+#define CHECK_COMPONENTS_SIZE(componentID) if (componentID == MAX_COMPONENTS) { throw std::runtime_error("reached maximum number of components!!"); }
 
-extern uint32_t componentsCounter;
+static uint32_t componentsCounter = 0;
 
 template <typename Comp> uint32_t GetComponentID() {
     static uint32_t componentID = componentsCounter++;
     return componentID;
 }
-
-struct Entity {
-
-    void Init() {
-        //for (Component* component : components) { component->Init(); }
-    }
-    void Update() {
-        //for (Component* component : components) { component->Update(); }
-    }
-    void Destroy() {
-        //for (Component* component : components) { component->Destroy(); }
-    }
-};
 
 struct Scene {
 
@@ -49,17 +37,17 @@ struct Scene {
     }
 
    template <typename Comp> bool HasComponent(uint32_t entity) {
-        CHECK_ENTITIES_SIZE(entity); 
+        CHECK_ENTITIES_SIZE(entity); CHECK_COMPONENTS_SIZE(GetComponentID<Comp>());
         return sceneMatrix[GetComponentID<Comp>()][entity];
     }
 
     template <typename Comp> void AddComponent(uint32_t entity) {
-        CHECK_ENTITIES_SIZE(entity); 
+        CHECK_ENTITIES_SIZE(entity); CHECK_COMPONENTS_SIZE(GetComponentID<Comp>());
         sceneMatrix[GetComponentID<Comp>()][entity] = 1;
     }
 
     template <typename Comp> void RemoveComponent(uint32_t entity) {
-        CHECK_ENTITIES_SIZE(entity);
+        CHECK_ENTITIES_SIZE(entity); CHECK_COMPONENTS_SIZE(GetComponentID<Comp>());
         sceneMatrix[GetComponentID<Comp>()][entity] = 0;
     }
     

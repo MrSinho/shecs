@@ -4,8 +4,8 @@
 #include <vector>
 
 #define MAX_ENTITIES 2
-#define MAX_COMPONENTS 2
-#include <UE_ECS.h>
+#define MAX_COMPONENTS 2 //is the maximum number of components used in total, not for each object
+#include <UE_ECS.hpp>
 
 struct Transform {
 	std::array<float, 3> position;
@@ -47,7 +47,7 @@ int main() {
 	std::cout << "Has Mesh:      " << scene->HasComponent<Mesh>(entity) << std::endl;
 
 	//uint32_t entity3 = scene->CreateEntity(); //throws error: reached maximum entities!!
-	scene->AddComponent<Button>(entity2); //issue: max components is applied to every single object!!
+	//scene->AddComponent<Button>(entity2); //throws error: reached maximum components!!
 
 	std::cin.get();
 
