@@ -136,3 +136,6 @@ build/Example.dir/Debug/Example.vcxproj.FileListAbsolute.txt
 build/x64/Debug/ZERO_CHECK/ZERO_CHECK.Build.CppClean.log
 build/x64/Debug/ZERO_CHECK/ZERO_CHECK.log
 build/x64/Debug/ZERO_CHECK/ZERO_CHECK.vcxproj.FileListAbsolute.txt
+build/.vs/EZ_ECS/v16/Browse.VC.db
+build/.vs/EZ_ECS/v16/Browse.VC.db-shm
+build/.vs/EZ_ECS/v16/Browse.VC.db-wal
