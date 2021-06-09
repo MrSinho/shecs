@@ -1,22 +1,20 @@
 #include <iostream>
-
 #include <array>
-#include <vector>
 
 #define MAX_ENTITIES 2
-#define MAX_COMPONENTS 2 //is the maximum number of components used in total, not for each object
+#define MAX_COMPONENTS 2 //is the maximum number of component *types* used in total, in all ECSs, not for each object
 #include <UE_ECS.hpp>
 
 struct Transform {
-	std::array<float, 3> position;
+	std::array<float, 3> position = {20};
 	std::array<float, 3> rotation;
 	std::array<float, 3> scale;
 };
 
 struct Mesh {
 	const char* path;
-	std::vector<float> vertices;
-	std::vector<uint32_t> indices;
+	float vertices[10];
+	float indices[2];
 };
 
 struct Button {
@@ -25,29 +23,33 @@ struct Button {
 
 int main() {
 
-	Scene *scene = new Scene();
-	uint32_t entity = scene->CreateEntity();
-	uint32_t entity2 = scene->CreateEntity();
+	uint32_t entity = ECS::CreateEntity();
+	uint32_t entity1 = ECS::CreateEntity();
 
 	std::cout << "Entity ID: " << entity << std::endl;
-	std::cout << "Entity ID: " << entity2 << std::endl;
+	std::cout << "Entity ID: " << entity1 << std::endl;
 
 	
-	std::cout << "Component ID: " << GetComponentID<Transform>() << std::endl;
-	std::cout << "Component ID: " << GetComponentID<Transform>() << std::endl;
-	std::cout << "Component ID: " << GetComponentID<Mesh>() << std::endl;
+	std::cout << "Component ID: " << ECS::GetComponentID<Transform>() << std::endl;
+	std::cout << "Component ID: " << ECS::GetComponentID<Transform>() << std::endl;
+	std::cout << "Component ID: " << ECS::GetComponentID<Mesh>() << std::endl;
 
-	scene->AddComponent<Transform>(entity);
+	ECS::AddComponent<Transform>(entity);
 
-	std::cout << "Has Transform: " << scene->HasComponent<Transform>(entity) << std::endl;
-	std::cout << "Has Mesh:      " << scene->HasComponent<Mesh>(entity) << std::endl;
-	scene->AddComponent<Mesh>(entity);
-	std::cout << "Has Mesh:      " << scene->HasComponent<Mesh>(entity) << std::endl;
-	scene->RemoveComponent<Mesh>(entity);
-	std::cout << "Has Mesh:      " << scene->HasComponent<Mesh>(entity) << std::endl;
+	std::cout << "entity has Transform:  " << ECS::HasComponent<Transform>(entity) << std::endl;
+	std::cout << "entity has Mesh:       " << ECS::HasComponent<Mesh>(entity) << std::endl;
+	ECS::AddComponent<Mesh>(entity);
+	std::cout << "entity has Mesh:       " << ECS::HasComponent<Mesh>(entity) << std::endl;
+	ECS::RemoveComponent<Mesh>(entity);
+	std::cout << "entity has Mesh:       " << ECS::HasComponent<Mesh>(entity) << std::endl;
 
-	//uint32_t entity3 = scene->CreateEntity(); //throws error: reached maximum entities!!
-	//scene->AddComponent<Button>(entity2); //throws error: reached maximum components!!
+	//uint32_t entity3 = ECS::CreateEntity(); //throws error: reached maximum entities!!
+	//ECS::AddComponent<Button>(entity1); //throws error: reached maximum component types!!
+
+	ECS::AddComponent<Transform>(entity1);
+	std::cout << "entity1 has Transform: " << ECS::HasComponent<Transform>(entity1) << std::endl;
+
+	std::cout << ECS::GetComponent<Transform>(entity1)->position[0] << std::endl;
 
 	std::cin.get();
 
