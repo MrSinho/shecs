@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.0)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
+
+project(UE_ECS VERSION 1.0)
+
+#UE DATA HANDLER
+file(GLOB_RECURSE UE_ECS_SRC UE_ECS/src/*.cpp)
+add_library(UE_ECS ${UE_ECS_SRC})
+target_include_directories( UE_ECS PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}/UE_ECS/include
+)
+
+#EXAMPLE 
+file(GLOB_RECURSE EXAMPLE_SRC Example/src/*.cpp)
+add_executable(Example ${EXAMPLE_SRC})
+target_link_libraries(Example PUBLIC UE_ECS)
+
+#OUTPUT
+set_target_properties(UE_ECS Example PROPERTIES
+	ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+	VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug
+)
