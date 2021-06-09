@@ -4,7 +4,7 @@ A simple Entity Component System, not the purest.
 
 ## Example:
 
-### Build
+### Build example
 
 Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/tree/main/Example/example.cpp):
 
@@ -14,7 +14,7 @@ cmake --build .
 start bin/Debug/Example.exe
 ```
 
-### Looking at the example
+## Implementation
 
 Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.hpp`](https://github.com/MrSinho/EZ-ECS/tree/main/EZ_ECS/include):
 
