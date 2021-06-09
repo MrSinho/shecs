@@ -16,7 +16,7 @@ start bin/Debug/Example.exe
 
 ## Implementation
 
-Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.hpp`](https://github.com/MrSinho/EZ-ECS/tree/main/include):
+Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.hpp`](https://github.com/MrSinho/EZ-ECS/tree/main/include/EZ_ECS.hpp):
 
 ```cpp
 #define EZ_ECS_MAX_ENTITIES 64
