@@ -4,12 +4,12 @@
 #include <stdint.h>
 #include <stdexcept>
 
-#ifndef MAX_ENTITIES
-    #define MAX_ENTITIES 10
+#ifndef EZ_ECS_MAX_ENTITIES
+    #define EZ_ECS_MAX_ENTITIES 32
 #endif
 
-#ifndef MAX_COMPONENTS
-    #define MAX_COMPONENTS 10
+#ifndef EZ_ECS_MAX_COMPONENTS
+    #define EZ_ECS_MAX_COMPONENTS 64
 #endif
 
 #define CHECK_ENTITIES_SIZE(entity) if (entity == MAX_ENTITIES) { throw std::runtime_error("reached maximum number of entities!!"); }
@@ -21,7 +21,7 @@ namespace EZ_ECS {
     static void *components[MAX_COMPONENTS] = {nullptr};
     static bool sceneMatrix[MAX_COMPONENTS][MAX_ENTITIES] = {0};
     static uint32_t entities[MAX_ENTITIES] = {MAX_ENTITIES};
-    static uint32_t usedEntitiesCounter = 0;
+    static uint32_t createdEntities = 0;
 
     template <typename Comp> uint32_t GetComponentID() {
         static uint32_t componentID = componentsCounter++;
@@ -29,9 +29,9 @@ namespace EZ_ECS {
     }
 
     uint32_t CreateEntity() {
-        uint32_t entity = usedEntitiesCounter;
+        uint32_t entity = createdEntities;
         CHECK_ENTITIES_SIZE(entity);
-        usedEntitiesCounter++;
+        createdEntities++;
         entities[entity] = entity;
         return entity;
     }
