@@ -6,7 +6,7 @@ A simple Entity Component System, not the purest.
 
 ### Build example
 
-Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/tree/main/Example/example.cpp):
+Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/blob/main/Example/Example.cpp):
 
 ```cpp
 cmake . 
