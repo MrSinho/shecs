@@ -8,7 +8,7 @@ A simple Entity Component System, not the purest.
 
 Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/blob/main/Example/Example.cpp):
 
-```bat
+```bash
 cmake . 
 cmake --build .
 start bin/Debug/Example.exe
