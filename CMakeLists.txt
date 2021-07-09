@@ -1,15 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
 
-project(EZ_ECS VERSION 1.0)
+project(EZ_ECS C)
 
 #EXAMPLE 
-file(GLOB_RECURSE EXAMPLE_SRC Example/*.cpp)
+file(GLOB_RECURSE EXAMPLE_SRC Example/src/*.c)
 add_executable(Example ${EXAMPLE_SRC})
 target_include_directories(Example PUBLIC 
-	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${CMAKE_CURRENT_SOURCE_DIR}/EZ-ECS/include
 )
 
 #OUTPUT
