@@ -1,6 +1,6 @@
 //max entities and max components can have any value, for the example i'll make them equal to 2
-#define EZ_ECS_MAX_ENTITIES 4
-#define EZ_ECS_MAX_COMPONENTS 4 //is the maximum number of component *types* used in total, in all ECSs, not for each object
+#define EZ_ECS_MAX_ENTITIES 4 //is the maximum number of entities used in total
+#define EZ_ECS_MAX_COMPONENTS 4 //is the maximum number of component *types* used in total
 
 #include <EZ_ECS.h>
 #include<stdio.h>
@@ -23,7 +23,7 @@ typedef struct Transform {
 	float scale[3];
 
 } Transform;
-EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Transform, 1);
+EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Transform, 1)
 
 typedef struct Player {
 
@@ -33,7 +33,7 @@ typedef struct Player {
 	int vitality;
 
 } Player;
-EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2); 
+EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 int main() {
 	
@@ -45,7 +45,7 @@ int main() {
 
 	printf("Entities: %i, %i, %i, %i\n", entity0, entity1, entity2, entity3);
 
-	ezecsScene myScene = ezecsCreateScene();
+	ezecsScene myScene = { 0 };
 	
 	printf("Camera component ID: %i\n", ezecsCameraComponentID);
 	printf("Transform component ID: %i\n", ezecsTransformComponentID);

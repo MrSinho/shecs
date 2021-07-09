@@ -1,9 +1,11 @@
 #ifndef EZ_ECS_H
 #define EZ_ECS_H
 
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+
 
 #ifndef EZ_ECS_MAX_ENTITIES
 #define EZ_ECS_MAX_ENTITIES 64
@@ -13,14 +15,15 @@
 #define EZ_ECS_MAX_COMPONENTS 32
 #endif
 
+
+
 typedef struct ezecsScene {
+
 	void* sceneMatrix[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS];
+
 } ezecsScene;
 
-ezecsScene ezecsCreateScene() {
-	ezecsScene scene = { { NULL } };
-	return scene;
-}
+
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ComponentID = n; \
@@ -42,6 +45,10 @@ void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = NULL;\
 } \
 
+
+
+ezecsScene ezecsCreateScene();
+
 const uint32_t ezecsCreateEntity();
 
 void ezecsDestroyEntity(ezecsScene *scene, const uint32_t entity);
@@ -51,6 +58,12 @@ void ezecsCheckEntitiesSize(const uint32_t entity);
 void ezecsCheckComponentsSize(const uint32_t componentID);
 
 
+
+ezecsScene ezecsCreateScene() {
+	ezecsScene scene = { { NULL } };
+	return scene;
+}
+
 const uint32_t ezecsCreateEntity() {
 	static uint32_t entity = 0;
 	const uint32_t _entity = entity;
@@ -59,10 +72,10 @@ const uint32_t ezecsCreateEntity() {
 	return _entity;
 }
 
-void ezecsDestroyEntity(ezecsScene *scene, const uint32_t entity) {
+void ezecsDestroyEntity(ezecsScene* scene, const uint32_t entity) {
 	for (uint32_t i = 0; i < EZ_ECS_MAX_COMPONENTS; i++) {
 		free(scene->sceneMatrix[entity][i]);
-		scene->sceneMatrix[entity][i] = 0;
+		scene->sceneMatrix[entity][i] = NULL;
 	}
 }
 
