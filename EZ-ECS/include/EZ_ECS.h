@@ -27,20 +27,20 @@ typedef struct ezecsScene {
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ComponentID = n; \
-x* ezecsAdd ## x ## Component(ezecsScene *scene, uint32_t entity) { \
+x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ComponentID);\
 	x *component = (x*)calloc(1, sizeof(x));\
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = (void*)component;\
 	return (x*)component;\
 } \
-int ezecsHas ## x ## Component(ezecsScene scene, uint32_t entity) { \
+int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene.sceneMatrix[entity][ezecs ## x ## ComponentID] == NULL); \
 } \
-x* ezecsGet ## x ## Component(ezecsScene scene, uint32_t entity) { \
+x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return (x*)scene.sceneMatrix[entity][ezecs ## x ## ComponentID]; \
 } \
-void ezecsRemove ## x ## Component(ezecsScene *scene, uint32_t entity) { \
+void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	free(scene->sceneMatrix[entity][ezecs ## x ## ComponentID]);\
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = NULL;\
 } \
@@ -51,11 +51,11 @@ ezecsScene ezecsCreateScene();
 
 const uint32_t ezecsCreateEntity();
 
-void ezecsDestroyEntity(ezecsScene *scene, uint32_t entity);
+void ezecsDestroyEntity(ezecsScene *scene, const uint32_t entity);
 
-void ezecsCheckEntitiesSize(uint32_t entity);
+void ezecsCheckEntitiesSize(const uint32_t entity);
 
-void ezecsCheckComponentsSize(uint32_t componentID);
+void ezecsCheckComponentsSize(const uint32_t componentID);
 
 
 
@@ -72,7 +72,7 @@ const uint32_t ezecsCreateEntity() {
 	return _entity;
 }
 
-void ezecsDestroyEntity(ezecsScene* scene, uint32_t entity) {
+void ezecsDestroyEntity(ezecsScene* scene, const uint32_t entity) {
 	for (uint32_t i = 0; i < EZ_ECS_MAX_COMPONENTS; i++) {
 		free(scene->sceneMatrix[entity][i]);
 		scene->sceneMatrix[entity][i] = NULL;
