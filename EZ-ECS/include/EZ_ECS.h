@@ -27,18 +27,18 @@ typedef struct ezecsScene {
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ComponentID = n; \
-x ## * ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
+x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ComponentID);\
 	x *component = (x*)calloc(1, sizeof(x));\
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = (void*)component;\
-	return (x ## *)component;\
+	return (x*)component;\
 } \
 int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene.sceneMatrix[entity][ezecs ## x ## ComponentID] == NULL); \
 } \
-x ## * ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
-	return (x ## *)scene.sceneMatrix[entity][ezecs ## x ## ComponentID]; \
+x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
+	return (x*)scene.sceneMatrix[entity][ezecs ## x ## ComponentID]; \
 } \
 void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	free(scene->sceneMatrix[entity][ezecs ## x ## ComponentID]);\

@@ -1,4 +1,3 @@
-//max entities and max components can have any value, for the example i'll make them equal to 2
 #define EZ_ECS_MAX_ENTITIES 4 //is the maximum number of entities used in total
 #define EZ_ECS_MAX_COMPONENTS 4 //is the maximum number of component *types* used in total
 
