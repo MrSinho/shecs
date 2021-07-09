@@ -3,7 +3,7 @@ add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
 
 project(EZ_ECS C)
 
-set(EZ_ECS_INCLUDE_DIR EZ-ECS/include)
+set(EZ_ECS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/EZ-ECS/include)
 
 #EXAMPLE 
 file(GLOB_RECURSE EXAMPLE_SRC Example/src/*.c)
