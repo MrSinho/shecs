@@ -1,53 +1,59 @@
 # EZ-ECS
 
-A simple Entity Component System, not the purest. 
+A simple C Entity Component System 
 
 ## Example:
 
 ### Build example
 
-Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/blob/main/Example/Example.cpp):
+Use cmake to build the [`Example`](https://github.com/MrSinho/EZ-ECS/tree/main/Example/src/Example.c):
 
-```bat
+```bash
 cmake . 
 cmake --build .
-start bin/Debug/Example.exe
+./bin/Debug/Example
 ```
 
 ## Implementation
 
-Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.hpp`](https://github.com/MrSinho/EZ-ECS/tree/main/include/EZ_ECS.hpp):
+Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.hpp`](https://github.com/MrSinho/EZ-ECS/tree/main/EZ-ECS/include/EZ_ECS.h):
 
-```bash
+```c
 #define EZ_ECS_MAX_ENTITIES 64
 #define EZ_ECS_MAX_COMPONENTS 128
-#include <EZ_ECS.hpp>
+#include <EZ_ECS.h>
 ``` 
 
 ### Create an entity and add a component
 
-Define your components and use the following functions to create an entity, add and remove components from the entity.
+Define your components and call the macro function `EZ_ECS_MAKE_COMPONENT_DEFINITIONS` to generate the required functions for using the ecs. 
 
-```cpp
-struct MyComponent {
-	float myFloat = 0.0f;
-};
+```c
+typedef struct Transform{
+	
+	float position[3];
 
-uint32_t entity = EZ_ECS::CreateEntity();
+} Transform;
 
-EZ_ECS::AddComponent<MyComponent>(entity); //adds a new component
-
-EZ_ECS::RemoveComponent<MyComponent>(entity); //removes that component
-
-bool hascomp = EZ_ECS::HasComponent<MyComponent>(entity);
-
+EZ_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent)
 ```
 
-### Accessing your components
+Now you're able to call functions such as the following:
 
-```cpp
-MyComponent *mycomp = EZ_ECS::GetComponent<MyComponent>(entity); //returns the component of the given type, relative to the entity
+```c
+uint32_t entity = ezecsCreateEntity();
 
-std::vector<MyComponent*> compArray = EZ_ECS::View<MyComponent>(); //returns a vector of all components of the given type 
+ezecsScene myScene = { 0 }; //scene handle: stores entities and components
 
+
+ezecsAddTransformComponent(&scene, entity); //adds a new component
+
+Transform *t = ezecsGetTransformComponent(scene, entity);
+transform->position[0] = 33.33f;
+
+printf("%f, \n"ezecsGetTransformComponent(scene, entity)->position[0]);
+
+ezecsRemoveTransformComponent(&scene, entity); //removes that component
+
+int hasTransform = ezecsHasTransformComponent(scene, entity);
 ```
