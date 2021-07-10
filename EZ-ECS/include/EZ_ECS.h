@@ -27,7 +27,7 @@ typedef struct ezecsScene {
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ComponentID = n; \
-x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
+static x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ComponentID);\
 	x *component = (x*)calloc(1, sizeof(x));\
