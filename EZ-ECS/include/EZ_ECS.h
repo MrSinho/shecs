@@ -34,28 +34,28 @@ x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = (void*)component;\
 	return (x*)component;\
 } \
-static inline int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
+static int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene.sceneMatrix[entity][ezecs ## x ## ComponentID] == NULL); \
 } \
-static inline x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
+static x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return (x*)scene.sceneMatrix[entity][ezecs ## x ## ComponentID]; \
 } \
-static inline void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
+static void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	free(scene->sceneMatrix[entity][ezecs ## x ## ComponentID]);\
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = NULL;\
 } \
 
 
 
-ezecsScene ezecsCreateScene();
+static ezecsScene ezecsCreateScene();
 
-const uint32_t ezecsCreateEntity();
+static const uint32_t ezecsCreateEntity();
 
-void ezecsDestroyEntity(ezecsScene *scene, const uint32_t entity);
+static void ezecsDestroyEntity(ezecsScene *scene, const uint32_t entity);
 
-void ezecsCheckEntitiesSize(const uint32_t entity);
+static void ezecsCheckEntitiesSize(const uint32_t entity);
 
-void ezecsCheckComponentsSize(const uint32_t componentID);
+static void ezecsCheckComponentsSize(const uint32_t componentID);
 
 
 
