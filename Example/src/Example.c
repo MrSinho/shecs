@@ -46,19 +46,19 @@ int main() {
 
 	ezecsScene myScene = { 0 };
 	
-	printf("Camera component ID: %i\n", ezecsCameraComponentID);
-	printf("Transform component ID: %i\n", ezecsTransformComponentID);
-	printf("Player component ID: %i\n", ezecsPlayerComponentID);
+	printf("Camera component ID: %i\n", ezecsCameraID);
+	printf("Transform component ID: %i\n", ezecsTransformID);
+	printf("Player component ID: %i\n", ezecsPlayerID);
 
-	printf("entity0 has transform component: %i\n", ezecsHasTransformComponent(myScene, entity0));
-	Transform *transform = ezecsAddTransformComponent(&myScene, entity0);
+	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
+	Transform *transform = ezecsAddTransform(&myScene, entity0);
 	transform->position[0] = 33.33f;
-	printf("entity0 has transform component: %i\n", ezecsHasTransformComponent(myScene, entity0));
+	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
 	
-	printf("entity0 transform x position: %f \n", ezecsGetTransformComponent(myScene, entity0)->position[0]);
+	printf("entity0 transform x position: %f \n", ezecsGetTransform(myScene, entity0)->position[0]);
 
-	ezecsRemoveTransformComponent(&myScene, entity0);
-	printf("entity0 has transform component: %i\n", ezecsHasTransformComponent(myScene, entity0));
+	ezecsRemoveTransform(&myScene, entity0);
+	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
 
 	ezecsDestroyEntity(&myScene, entity0);
 
