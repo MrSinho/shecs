@@ -34,13 +34,13 @@ x* ezecsAdd ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = (void*)component;\
 	return (x*)component;\
 } \
-int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
+static int ezecsHas ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene.sceneMatrix[entity][ezecs ## x ## ComponentID] == NULL); \
 } \
-x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
+static x* ezecsGet ## x ## Component(const ezecsScene scene, const uint32_t entity) { \
 	return (x*)scene.sceneMatrix[entity][ezecs ## x ## ComponentID]; \
 } \
-void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
+static void ezecsRemove ## x ## Component(ezecsScene *scene, const uint32_t entity) { \
 	free(scene->sceneMatrix[entity][ezecs ## x ## ComponentID]);\
 	scene->sceneMatrix[entity][ezecs ## x ## ComponentID] = NULL;\
 } \
