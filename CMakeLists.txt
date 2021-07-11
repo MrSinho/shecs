@@ -6,8 +6,8 @@ project(EZ_ECS C)
 set(EZ_ECS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/EZ-ECS/include)
 
 #EXAMPLE 
-file(GLOB_RECURSE EXAMPLE_SRC Example/src/*.c)
-add_executable(Example ${EXAMPLE_SRC})
+file(GLOB_RECURSE EZ_ECS_EXAMPLE_SRC Example/src/*.c)
+add_executable(EZ_ECS_Example ${EZ_ECS_EXAMPLE_SRC})
 target_include_directories(Example PUBLIC 
 	${EZ_ECS_INCLUDE_DIR}
 )

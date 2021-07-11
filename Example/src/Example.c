@@ -36,6 +36,7 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 int main() {
 	
+	ezecsScene myScene = { 0 };
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -43,24 +44,26 @@ int main() {
 	const uint32_t entity3 = ezecsCreateEntity();
 
 	printf("Entities: %i, %i, %i, %i\n", entity0, entity1, entity2, entity3);
-
-	ezecsScene myScene = { 0 };
-	
 	printf("Camera component ID: %i\n", ezecsCameraID);
 	printf("Transform component ID: %i\n", ezecsTransformID);
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
-	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
-	Transform *transform = ezecsAddTransform(&myScene, entity0);
-	transform->position[0] = 33.33f;
-	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
-	
-	printf("entity0 transform x position: %f \n", ezecsGetTransform(myScene, entity0)->position[0]);
+	ezecsAddTransform(&myScene, entity0)->position[0] = 33.33f;
+	ezecsAddCamera(&myScene, entity0)->FOV = 45.0f;
 
-	ezecsRemoveTransform(&myScene, entity0);
-	printf("entity0 has transform component: %i\n", ezecsHasTransform(myScene, entity0));
+	ezecsAddPlayer(&myScene, entity1)->intelligence = -20;
 
-	ezecsDestroyEntity(&myScene, entity0);
+	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
+		if (ezecsHasTransform(myScene, entity)) {
+			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
+		}
+		if (ezecsHasCamera(myScene, entity)) {
+			printf("%f\n", ezecsGetCamera(myScene, entity)->FOV);
+		}
+		if (ezecsHasPlayer(myScene, entity)) {
+			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
+		}
+	}
 
 	return 0;
 }
