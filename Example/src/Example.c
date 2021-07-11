@@ -42,15 +42,17 @@ int main() {
 	const uint32_t entity1 = ezecsCreateEntity();
 	const uint32_t entity2 = ezecsCreateEntity();
 	const uint32_t entity3 = ezecsCreateEntity();
-
+	
 	printf("Entities: %i, %i, %i, %i\n", entity0, entity1, entity2, entity3);
 	printf("Camera component ID: %i\n", ezecsCameraID);
 	printf("Transform component ID: %i\n", ezecsTransformID);
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
+	//entity0 stuff
 	ezecsAddTransform(&myScene, entity0)->position[0] = 33.33f;
 	ezecsAddCamera(&myScene, entity0)->FOV = 45.0f;
-
+	
+	//entity1 stuff
 	ezecsAddPlayer(&myScene, entity1)->intelligence = -20;
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
