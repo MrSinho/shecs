@@ -26,7 +26,7 @@ Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned 
 
 ### Create an entity and add a component
 
-Define your components and call the macro function `EZ_ECS_MAKE_COMPONENT_DEFINITIONS` to generate the required functions for using the ecs. 
+Define your components and call the macro function `EZ_ECS_MAKE_COMPONENT_DEFINITIONS` and specify the ID you're going to give to the type. This allows to generate the required functions for using the ecs. 
 
 ```c
 typedef struct Transform{
@@ -35,7 +35,7 @@ typedef struct Transform{
 
 } Transform;
 
-EZ_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent)
+EZ_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent, 0)
 ```
 
 Now you're able to call functions such as the following:
