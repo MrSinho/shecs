@@ -49,7 +49,7 @@ static void ezecsCheckEntitiesSize(const uint32_t entity);
 
 static void ezecsCheckComponentsSize(const uint32_t componentID);
 
-
+static void ezecsClearScene(ezecsScene scene);
 
 void ezecsCreateScene(ezecsScene scene) {
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
