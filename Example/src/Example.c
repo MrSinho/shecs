@@ -1,5 +1,5 @@
 #define EZ_ECS_MAX_ENTITIES 4 //is the maximum number of entities used in total
-#define EZ_ECS_MAX_COMPONENTS 4 //is the maximum number of component *types* used in total
+#define EZ_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
 
 #include <EZ_ECS.h>
 #include<stdio.h>
@@ -36,7 +36,7 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 int main() {
 	
-	ezecsScene myScene = { 0 };
+	ezecsScene* myScene = ezecsCreateScene();
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -49,11 +49,11 @@ int main() {
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
 	//entity0 stuff
-	ezecsAddTransform(&myScene, entity0)->position[0] = 33.33f;
-	ezecsAddCamera(&myScene, entity0)->FOV = 45.0f;
+	ezecsAddTransform(myScene, entity0)->position[0] = 33.33f;
+	ezecsAddCamera(myScene, entity0)->FOV = 45.0f;
 	
 	//entity1 stuff
-	ezecsAddPlayer(&myScene, entity1)->intelligence = -20;
+	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
 		if (ezecsHasTransform(myScene, entity)) {
