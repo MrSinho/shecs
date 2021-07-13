@@ -47,7 +47,8 @@ Now you're able to call functions such as the following:
 ```c
 uint32_t entity = ezecsCreateEntity();
 
-ezecsScene* myScene = ezecsCreateScene(); //scene handle: stores entities and components
+ezecsScene myScene;
+ezecsCreateScene(myScene); //scene handle: stores entities and components
 
 
 ezecsAddTransformComponent(scene, entity); //adds a new component
