@@ -36,7 +36,8 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 int main() {
 	
-	ezecsScene* myScene = ezecsCreateScene();
+	ezecsScene myScene;
+	ezecsCreateScene(&myScene);
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -66,8 +67,6 @@ int main() {
 			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
 		}
 	}
-
-	ezecsClearScene(myScene);
 
 	return 0;
 }

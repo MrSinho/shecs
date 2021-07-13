@@ -15,51 +15,48 @@
 #define EZ_ECS_MAX_COMPONENTS 32
 #endif
 
-
-
-typedef struct ezecsScene {
-
-	void* sceneMatrix[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS];
-
-} ezecsScene;
-
+typedef void* ezecsScene[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS];
 
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ID = n; \
-static x* ezecsAdd ## x(ezecsScene* scene, const uint32_t entity) { \
+static x* ezecsAdd ## x(ezecsScene scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	x *component = (x*)calloc(1, sizeof(x));\
-	scene->sceneMatrix[entity][ezecs ## x ## ID] = (void*)component;\
+	scene[entity][ezecs ## x ## ID] = (void*)component;\
 	return (x*)component;\
 } \
-static int ezecsHas ## x(const ezecsScene* scene, const uint32_t entity) { \
-	return !(scene->sceneMatrix[entity][ezecs ## x ## ID] == NULL); \
+static int ezecsHas ## x(const ezecsScene scene, const uint32_t entity) { \
+	return !(scene[entity][ezecs ## x ## ID] == NULL); \
 } \
-static x* ezecsGet ## x(const ezecsScene* scene, const uint32_t entity) { \
-	return (x*)scene->sceneMatrix[entity][ezecs ## x ## ID]; \
+static x* ezecsGet ## x(const ezecsScene scene, const uint32_t entity) { \
+	return (x*)scene[entity][ezecs ## x ## ID]; \
 } \
-static void ezecsRemove ## x(ezecsScene* scene, const uint32_t entity) { \
-	free(scene->sceneMatrix[entity][ezecs ## x ## ID]);\
-	scene->sceneMatrix[entity][ezecs ## x ## ID] = NULL;\
+static void ezecsRemove ## x(ezecsScene scene, const uint32_t entity) { \
+	free(scene[entity][ezecs ## x ## ID]);\
+	scene[entity][ezecs ## x ## ID] = NULL;\
 } \
 
 
-static ezecsScene* ezecsCreateScene();
+static void ezecsCreateScene();
 
 static const uint32_t ezecsCreateEntity();
 
-static void ezecsDestroyEntity(ezecsScene* scene, const uint32_t entity);
+static void ezecsDestroyEntity(ezecsScene scene, const uint32_t entity);
 
 static void ezecsCheckEntitiesSize(const uint32_t entity);
 
 static void ezecsCheckComponentsSize(const uint32_t componentID);
 
-static void ezecsClearScene(ezecsScene *scene);
 
-ezecsScene* ezecsCreateScene() {
-	return (ezecsScene*)calloc(1, sizeof(ezecsScene));
+
+void ezecsCreateScene(ezecsScene scene) {
+	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
+		for (uint32_t component = 0; component < EZ_ECS_MAX_COMPONENTS; component++) {
+			scene[entity][component] = NULL;
+		}
+	}
 }
 
 const uint32_t ezecsCreateEntity() {
@@ -70,10 +67,10 @@ const uint32_t ezecsCreateEntity() {
 	return _entity;
 }
 
-void ezecsDestroyEntity(ezecsScene* scene, const uint32_t entity) {
+void ezecsDestroyEntity(ezecsScene scene, const uint32_t entity) {
 	for (uint32_t i = 0; i < EZ_ECS_MAX_COMPONENTS; i++) {
-		free(scene->sceneMatrix[entity][i]);
-		scene->sceneMatrix[entity][i] = NULL;
+		free(scene[entity][i]);
+		scene[entity][i] = NULL;
 	}
 }
 
@@ -85,7 +82,7 @@ void ezecsCheckComponentsSize(const uint32_t componentID) {
 	assert(componentID < EZ_ECS_MAX_COMPONENTS);
 }
 
-void ezecsClearScene(ezecsScene* scene) {
+void ezecsClearScene(ezecsScene scene) {
 	free(scene);
 }
 

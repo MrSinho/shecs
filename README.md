@@ -1,6 +1,6 @@
 # EZ-ECS
 
-A simple C Entity Component System 
+A header only Entity Component System written in C. 
 
 ## Build status:
 
