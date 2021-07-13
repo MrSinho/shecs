@@ -46,7 +46,7 @@ static void ezecsRemove ## x(ezecsScene* scene, const uint32_t entity) { \
 } \
 
 
-ezecsScene* ezecsCreateScene();
+static ezecsScene* ezecsCreateScene();
 
 static const uint32_t ezecsCreateEntity();
 
