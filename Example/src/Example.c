@@ -67,5 +67,7 @@ int main() {
 		}
 	}
 
+	ezecsClearScene(myScene);
+
 	return 0;
 }

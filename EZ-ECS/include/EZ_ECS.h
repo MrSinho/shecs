@@ -56,7 +56,7 @@ static void ezecsCheckEntitiesSize(const uint32_t entity);
 
 static void ezecsCheckComponentsSize(const uint32_t componentID);
 
-
+static void ezecsClearScene(ezecsScene *scene);
 
 ezecsScene* ezecsCreateScene() {
 	return (ezecsScene*)calloc(1, sizeof(ezecsScene));
@@ -83,6 +83,10 @@ void ezecsCheckEntitiesSize(const uint32_t entity) {
 
 void ezecsCheckComponentsSize(const uint32_t componentID) {
 	assert(componentID < EZ_ECS_MAX_COMPONENTS);
+}
+
+void ezecsClearScene(ezecsScene* scene) {
+	free(scene);
 }
 
 #endif
