@@ -39,7 +39,7 @@ static void ezecsRemove ## x(ezecsScene scene, const uint32_t entity) { \
 } \
 
 
-static void ezecsCreateScene();
+static void ezecsCreateScene(ezecsScene scene);
 
 static const uint32_t ezecsCreateEntity();
 
