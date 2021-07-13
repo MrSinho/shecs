@@ -2,6 +2,10 @@
 
 A simple C Entity Component System 
 
+## Build status:
+
+Linux: [![Build Status](https://travis-ci.com/MrSinho/EZ-ECS.svg?branch=main)](https://travis-ci.com/MrSinho/EZ-ECS)
+
 ## Example:
 
 ### Build example
