@@ -25,8 +25,14 @@ static x* ezecsAdd ## x(ezecsScene scene, const uint32_t entity) { \
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	x *component = (x*)calloc(1, sizeof(x));\
 	scene[entity][ezecs ## x ## ID] = (void*)component;\
-	return (x*)component;\
+	return component;\
 } \
+static x* ezecsSet ## x(ezecsScene scene, x* component, const uint32_t entity) {\
+	ezecsCheckEntitiesSize(entity);\
+	ezecsCheckComponentsSize(ezecs ## x ## ID);\
+	scene[entity][ezecs ## x ## ID] = (void*)component;\
+	return component;\
+}\
 static int ezecsHas ## x(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene[entity][ezecs ## x ## ID] == NULL); \
 } \

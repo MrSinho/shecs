@@ -1,4 +1,4 @@
-#define EZ_ECS_MAX_ENTITIES 4 //is the maximum number of entities used in total
+#define EZ_ECS_MAX_ENTITIES 5 //is the maximum number of entities used in total
 #define EZ_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
 
 #include <EZ_ECS.h>
@@ -34,6 +34,13 @@ typedef struct Player {
 } Player;
 EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
+typedef struct Material {
+	
+	const char* shaderPath;
+
+} Material;
+EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
+
 int main() {
 	
 	ezecsScene myScene;
@@ -56,6 +63,10 @@ int main() {
 	//entity1 stuff
 	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
 
+	Material mat = { "myShader.spv" };
+	ezecsSetMaterial(myScene, &mat, entity0);
+	ezecsSetMaterial(myScene, &mat, entity1);
+
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
 		if (ezecsHasTransform(myScene, entity)) {
 			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
@@ -65,6 +76,9 @@ int main() {
 		}
 		if (ezecsHasPlayer(myScene, entity)) {
 			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
+		}
+		if (ezecsHasMaterial(myScene, entity)) {
+			printf("%s\n", ezecsGetMaterial(myScene, entity)->shaderPath);
 		}
 	}
 
