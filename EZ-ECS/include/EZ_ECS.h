@@ -23,11 +23,11 @@ static const uint32_t ezecs ## x ## ID = n; \
 static x* ezecsAdd ## x(ezecsScene scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
-	x *component = (x*)calloc(1, sizeof(x));\
+	x* component = (x*)calloc(1, sizeof(x));\
 	scene[entity][ezecs ## x ## ID] = (void*)component;\
 	return component;\
 } \
-static x* ezecsSet ## x(ezecsScene scene, const x* component, const uint32_t entity) {\
+static const x* ezecsSet ## x(ezecsScene scene, const x* component, const uint32_t entity) {\
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	scene[entity][ezecs ## x ## ID] = (void*)component;\

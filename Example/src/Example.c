@@ -36,6 +36,7 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 typedef struct Material {
 	
+	int color;
 	const char* shaderPath;
 
 } Material;
@@ -63,9 +64,12 @@ int main() {
 	//entity1 stuff
 	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
 
-	Material mat = { "myShader.spv" };
+	Material mat = { 1, "myShader.spv" };
 	ezecsSetMaterial(myScene, &mat, entity0);
 	ezecsSetMaterial(myScene, &mat, entity1);
+
+	mat.color = 2;
+	mat.shaderPath = "lol";
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
 		if (ezecsHasTransform(myScene, entity)) {
@@ -78,7 +82,7 @@ int main() {
 			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
 		}
 		if (ezecsHasMaterial(myScene, entity)) {
-			printf("%s\n", ezecsGetMaterial(myScene, entity)->shaderPath);
+			printf("%i, %s\n", ezecsGetMaterial(myScene, entity)->color, ezecsGetMaterial(myScene, entity)->shaderPath);
 		}
 	}
 
