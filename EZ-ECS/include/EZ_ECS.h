@@ -27,7 +27,7 @@ static x* ezecsAdd ## x(ezecsScene scene, const uint32_t entity) { \
 	scene[entity][ezecs ## x ## ID] = component;\
 	return component;\
 } \
-static const x* ezecsSet ## x(ezecsScene scene, x* component, const uint32_t entity) {\
+static x* ezecsSet ## x(ezecsScene scene, x* component, const uint32_t entity) {\
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	scene[entity][ezecs ## x ## ID] = component;\
