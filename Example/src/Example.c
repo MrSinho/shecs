@@ -1,4 +1,4 @@
-#define EZ_ECS_MAX_ENTITIES 5 //is the maximum number of entities used in total
+#define EZ_ECS_MAX_ENTITIES 256 //is the maximum number of entities used in total
 #define EZ_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
 
 #include <EZ_ECS.h>
@@ -45,7 +45,7 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
 int main() {
 	
 	ezecsScene myScene;
-	ezecsCreateScene(myScene);
+	ezecsCreateScene((void**)myScene);
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -58,31 +58,31 @@ int main() {
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
 	//entity0 stuff
-	ezecsAddTransform(myScene, entity0)->position[0] = 33.33f;
-	ezecsAddCamera(myScene, entity0)->FOV = 45.0f;
+	ezecsAddTransform((void*)myScene, entity0)->position[0] = 33.33f;
+	ezecsAddCamera((void*)myScene, entity0)->FOV = 45.0f;
 	
 	//entity1 stuff
-	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
+	ezecsAddPlayer((void*)myScene, entity1)->intelligence = -20;
 
 	Material mat = { 1, "myShader.spv" };
-	ezecsSetMaterial(myScene, &mat, entity0);
-	ezecsSetMaterial(myScene, &mat, entity1);
+	ezecsSetMaterial((void*)myScene, &mat, entity0);
+	ezecsSetMaterial((void*)myScene, &mat, entity1);
 
 	mat.color = 2;
 	mat.shaderPath = "lol";
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
-		if (ezecsHasTransform(myScene, entity)) {
-			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
+		if (ezecsHasTransform((void*)myScene, entity)) {
+			printf("%f\n", ezecsGetTransform((void*)myScene, entity)->position[0]);
 		}
-		if (ezecsHasCamera(myScene, entity)) {
-			printf("%f\n", ezecsGetCamera(myScene, entity)->FOV);
+		if (ezecsHasCamera((void*)myScene, entity)) {
+			printf("%f\n", ezecsGetCamera((void*)myScene, entity)->FOV);
 		}
-		if (ezecsHasPlayer(myScene, entity)) {
-			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
+		if (ezecsHasPlayer((void*)myScene, entity)) {
+			printf("%i\n", ezecsGetPlayer((void*)myScene, entity)->intelligence);
 		}
-		if (ezecsHasMaterial(myScene, entity)) {
-			printf("%i, %s\n", ezecsGetMaterial(myScene, entity)->color, ezecsGetMaterial(myScene, entity)->shaderPath);
+		if (ezecsHasMaterial((void*)myScene, entity)) {
+			printf("%i, %s\n", ezecsGetMaterial((void*)myScene, entity)->color, ezecsGetMaterial((void*)myScene, entity)->shaderPath);
 		}
 	}
 
