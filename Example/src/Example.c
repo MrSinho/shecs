@@ -45,7 +45,7 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
 int main() {
 	
 	ezecsScene myScene;
-	ezecsCreateScene((void**)myScene);
+	ezecsCreateScene(myScene);
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -58,31 +58,31 @@ int main() {
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
 	//entity0 stuff
-	ezecsAddTransform((void*)myScene, entity0)->position[0] = 33.33f;
-	ezecsAddCamera((void*)myScene, entity0)->FOV = 45.0f;
+	ezecsAddTransform(myScene, entity0)->position[0] = 33.33f;
+	ezecsAddCamera(myScene, entity0)->FOV = 45.0f;
 	
 	//entity1 stuff
-	ezecsAddPlayer((void*)myScene, entity1)->intelligence = -20;
+	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
 
 	Material mat = { 1, "myShader.spv" };
-	ezecsSetMaterial((void*)myScene, &mat, entity0);
-	ezecsSetMaterial((void*)myScene, &mat, entity1);
+	ezecsSetMaterial(myScene, &mat, entity0);
+	ezecsSetMaterial(myScene, &mat, entity1);
 
 	mat.color = 2;
 	mat.shaderPath = "lol";
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
-		if (ezecsHasTransform((void*)myScene, entity)) {
-			printf("%f\n", ezecsGetTransform((void*)myScene, entity)->position[0]);
+		if (ezecsHasTransform(myScene, entity)) {
+			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
 		}
-		if (ezecsHasCamera((void*)myScene, entity)) {
-			printf("%f\n", ezecsGetCamera((void*)myScene, entity)->FOV);
+		if (ezecsHasCamera(myScene, entity)) {
+			printf("%f\n", ezecsGetCamera(myScene, entity)->FOV);
 		}
-		if (ezecsHasPlayer((void*)myScene, entity)) {
-			printf("%i\n", ezecsGetPlayer((void*)myScene, entity)->intelligence);
+		if (ezecsHasPlayer(myScene, entity)) {
+			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
 		}
-		if (ezecsHasMaterial((void*)myScene, entity)) {
-			printf("%i, %s\n", ezecsGetMaterial((void*)myScene, entity)->color, ezecsGetMaterial((void*)myScene, entity)->shaderPath);
+		if (ezecsHasMaterial(myScene, entity)) {
+			printf("%i, %s\n", ezecsGetMaterial(myScene, entity)->color, ezecsGetMaterial(myScene, entity)->shaderPath);
 		}
 	}
 
