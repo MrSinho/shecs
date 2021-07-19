@@ -20,6 +20,7 @@ typedef void* ezecsScene[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS];
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
 static const uint32_t ezecs ## x ## ID = n; \
+static const uint32_t ezecs ## x ## Size = sizeof(x); \
 static x* ezecsAdd ## x(ezecsScene scene, const uint32_t entity) { \
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\

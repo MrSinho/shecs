@@ -71,6 +71,8 @@ int main() {
 	mat.color = 2;
 	mat.shaderPath = "lol";
 
+	printf("Transform size %i \n", ezecsTransformSize);
+
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
 		if (ezecsHasTransform(myScene, entity)) {
 			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
