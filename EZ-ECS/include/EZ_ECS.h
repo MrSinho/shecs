@@ -36,7 +36,11 @@ static x* ezecsSet ## x(ezecsScene scene, x* component, const uint32_t entity) {
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	scene[entity][ezecs ## x ## ID] = component;\
-	scene[entity][ezecs ## x ## ID + EZ_ECS_SHARED_COMPONENTS] = ezecs ## x ## ID;\
+	uint32_t* shared = calloc(1, sizeof(int));\
+	if (shared != NULL) {\
+		*shared = ezecs ## x ## ID;\
+	}\
+	scene[entity][ezecs ## x ## ID + EZ_ECS_SHARED_COMPONENTS] = shared;\
 	return component;\
 }\
 static int ezecsIs ## x ## Shared(ezecsScene scene, const uint32_t entity) {\
