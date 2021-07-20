@@ -44,8 +44,8 @@ EZ_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
 
 int main() {
 	
-	ezecsScene myScene;
-	ezecsCreateScene(myScene);
+	ezecsScene scene;
+	ezecsCreateScene(scene);
 
 	const uint32_t entity0 = ezecsCreateEntity();
 	const uint32_t entity1 = ezecsCreateEntity();
@@ -58,15 +58,15 @@ int main() {
 	printf("Player component ID: %i\n", ezecsPlayerID);
 
 	//entity0 stuff
-	ezecsAddTransform(myScene, entity0)->position[0] = 33.33f;
-	ezecsAddCamera(myScene, entity0)->FOV = 45.0f;
+	ezecsAddTransform(scene, entity0)->position[0] = 33.33f;
+	ezecsAddCamera(scene, entity0)->FOV = 45.0f;
 	
 	//entity1 stuff
-	ezecsAddPlayer(myScene, entity1)->intelligence = -20;
+	ezecsAddPlayer(scene, entity1)->intelligence = -20;
 
 	Material mat = { 1, "myShader.spv" };
-	ezecsSetMaterial(myScene, &mat, entity0);
-	ezecsSetMaterial(myScene, &mat, entity1);
+	ezecsSetMaterial(scene, &mat, entity0);
+	ezecsSetMaterial(scene, &mat, entity1);
 
 	mat.color = 2;
 	mat.shaderPath = "lol";
@@ -75,17 +75,17 @@ int main() {
 	printf("Transform id %i \n", ezecsTransformID);
 
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
-		if (ezecsHasTransform(myScene, entity)) {
-			printf("%f\n", ezecsGetTransform(myScene, entity)->position[0]);
+		if (ezecsHasTransform(scene, entity) && !ezecsIsTransformShared(scene, entity)) {
+			printf("%f\n", ezecsGetTransform(scene, entity)->position[0]);
 		}
-		if (ezecsHasCamera(myScene, entity)) {
-			printf("%f\n", ezecsGetCamera(myScene, entity)->FOV);
+		if (ezecsHasCamera(scene, entity) && !ezecsIsCameraShared(scene, entity)) {
+			printf("%f\n", ezecsGetCamera(scene, entity)->FOV);
 		}
-		if (ezecsHasPlayer(myScene, entity)) {
-			printf("%i\n", ezecsGetPlayer(myScene, entity)->intelligence);
+		if (ezecsHasPlayer(scene, entity) && !ezecsIsPlayerShared(scene, entity)) {
+			printf("%i\n", ezecsGetPlayer(scene, entity)->intelligence);
 		}
-		if (ezecsHasMaterial(myScene, entity)) {
-			printf("%i, %s\n", ezecsGetMaterial(myScene, entity)->color, ezecsGetMaterial(myScene, entity)->shaderPath);
+		if (ezecsHasMaterial(scene, entity) && ezecsIsMaterialShared(scene, entity)) {
+			printf("%i, %s\n", ezecsGetMaterial(scene, entity)->color, ezecsGetMaterial(scene, entity)->shaderPath);
 		}
 	}
 

@@ -15,7 +15,11 @@
 #define EZ_ECS_MAX_COMPONENTS 32
 #endif
 
-typedef void* ezecsScene[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS];
+#ifndef EZ_ECS_SHARED_COMPONENTS
+#define EZ_ECS_SHARED_COMPONENTS EZ_ECS_MAX_COMPONENTS
+#endif
+
+typedef void* ezecsScene[EZ_ECS_MAX_ENTITIES][EZ_ECS_MAX_COMPONENTS + EZ_ECS_SHARED_COMPONENTS];
 
 
 #define EZ_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
@@ -32,7 +36,11 @@ static x* ezecsSet ## x(ezecsScene scene, x* component, const uint32_t entity) {
 	ezecsCheckEntitiesSize(entity);\
 	ezecsCheckComponentsSize(ezecs ## x ## ID);\
 	scene[entity][ezecs ## x ## ID] = component;\
+	scene[entity][ezecs ## x ## ID + EZ_ECS_SHARED_COMPONENTS] = ezecs ## x ## ID;\
 	return component;\
+}\
+static int ezecsIs ## x ## Shared(ezecsScene scene, const uint32_t entity) {\
+		return !(scene[entity][ezecs ## x ## ID + EZ_ECS_SHARED_COMPONENTS] == NULL); \
 }\
 static int ezecsHas ## x(const ezecsScene scene, const uint32_t entity) { \
 	return !(scene[entity][ezecs ## x ## ID] == NULL); \
@@ -60,7 +68,7 @@ static void ezecsClearScene(ezecsScene scene);
 
 void ezecsCreateScene(ezecsScene scene) {
 	for (uint32_t entity = 0; entity < EZ_ECS_MAX_ENTITIES; entity++) {
-		for (uint32_t component = 0; component < EZ_ECS_MAX_COMPONENTS; component++) {
+		for (uint32_t component = 0; component < EZ_ECS_MAX_COMPONENTS + EZ_ECS_SHARED_COMPONENTS; component++) {
 			scene[entity][component] = NULL;
 		}
 	}
@@ -75,7 +83,7 @@ const uint32_t ezecsCreateEntity() {
 }
 
 void ezecsDestroyEntity(ezecsScene scene, const uint32_t entity) {
-	for (uint32_t component = 0; component < EZ_ECS_MAX_COMPONENTS; component++) {
+	for (uint32_t component = 0; component < EZ_ECS_MAX_COMPONENTS + EZ_ECS_SHARED_COMPONENTS; component++) {
 		free(scene[entity * EZ_ECS_MAX_ENTITIES + component]);
 		scene[entity][component] = NULL;
 	}
