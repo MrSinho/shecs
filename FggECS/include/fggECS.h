@@ -23,54 +23,54 @@ typedef void* FggECSScene[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS + FGG_ECS
 
 
 #define FGG_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
-static const uint32_t fggECS ## x ## ID = n; \
-static const uint32_t fggECS ## x ## Size = sizeof(x); \
-static x* fggECSAdd ## x(FggECSScene scene, const uint32_t entity) { \
-	fggECSCheckEntitiesSize(entity);\
-	fggECSCheckComponentsSize(fggECS ## x ## ID);\
+static const uint32_t fgg ## x ## ID = n; \
+static const uint32_t fgg ## x ## Size = sizeof(x); \
+static x* fggAdd ## x(FggECSScene scene, const uint32_t entity) { \
+	fggCheckEntitiesSize(entity);\
+	fggCheckComponentsSize(fgg ## x ## ID);\
 	x* component = (x*)calloc(1, sizeof(x));\
-	scene[entity][fggECS ## x ## ID] = component;\
+	scene[entity][fgg ## x ## ID] = component;\
 	return component;\
 } \
-static x* fggECSSet ## x(FggECSScene scene, x* component, const uint32_t entity) {\
-	fggECSCheckEntitiesSize(entity);\
-	fggECSCheckComponentsSize(fggECS ## x ## ID);\
-	scene[entity][fggECS ## x ## ID] = component;\
+static x* fggSet ## x(FggECSScene scene, x* component, const uint32_t entity) {\
+	fggCheckEntitiesSize(entity);\
+	fggCheckComponentsSize(fgg ## x ## ID);\
+	scene[entity][fgg ## x ## ID] = component;\
 	uint32_t* shared = calloc(1, sizeof(int));\
 	if (shared != NULL) {\
-		*shared = fggECS ## x ## ID;\
+		*shared = fgg ## x ## ID;\
 	}\
-	scene[entity][fggECS ## x ## ID + FGG_ECS_SHARED_COMPONENTS] = shared;\
+	scene[entity][fgg ## x ## ID + FGG_ECS_SHARED_COMPONENTS] = shared;\
 	return component;\
 }\
-static int fggECSIs ## x ## Shared(FggECSScene scene, const uint32_t entity) {\
-		return !(scene[entity][fggECS ## x ## ID + FGG_ECS_SHARED_COMPONENTS] == NULL); \
+static int fggIs ## x ## Shared(FggECSScene scene, const uint32_t entity) {\
+		return !(scene[entity][fgg ## x ## ID + FGG_ECS_SHARED_COMPONENTS] == NULL); \
 }\
-static int fggECSHas ## x(const FggECSScene scene, const uint32_t entity) { \
-	return !(scene[entity][fggECS ## x ## ID] == NULL); \
+static int fggHas ## x(const FggECSScene scene, const uint32_t entity) { \
+	return !(scene[entity][fgg ## x ## ID] == NULL); \
 } \
-static x* fggECSGet ## x(const FggECSScene scene, const uint32_t entity) { \
-	return (x*)scene[entity][fggECS ## x ## ID]; \
+static x* fggGet ## x(const FggECSScene scene, const uint32_t entity) { \
+	return (x*)scene[entity][fgg ## x ## ID]; \
 } \
 static void FggECSRemove ## x(FggECSScene scene, const uint32_t entity) { \
-	free(scene[entity][fggECS ## x ## ID]);\
-	scene[entity][fggECS ## x ## ID] = NULL;\
+	free(scene[entity][fgg ## x ## ID]);\
+	scene[entity][fgg ## x ## ID] = NULL;\
 } \
 
 
-static void fggECSCreateScene(FggECSScene scene);
+static void fggCreateScene(FggECSScene scene);
 
-static const uint32_t fggECSCreateEntity();
+static const uint32_t fggCreateEntity();
 
-static void fggECSDestroyEntity(FggECSScene scene, const uint32_t entity);
+static void fggDestroyEntity(FggECSScene scene, const uint32_t entity);
 
-static void fggECSCheckEntitiesSize(const uint32_t entity);
+static void fggCheckEntitiesSize(const uint32_t entity);
 
-static void fggECSCheckComponentsSize(const uint32_t componentID);
+static void fggCheckComponentsSize(const uint32_t componentID);
 
-static void fggECSClearScene(FggECSScene scene);
+static void fggClearScene(FggECSScene scene);
 
-void fggECSCreateScene(FggECSScene scene) {
+void fggCreateScene(FggECSScene scene) {
 	for (uint32_t entity = 0; entity < FGG_ECS_MAX_ENTITIES; entity++) {
 		for (uint32_t component = 0; component < FGG_ECS_MAX_COMPONENTS + FGG_ECS_SHARED_COMPONENTS; component++) {
 			scene[entity][component] = NULL;
@@ -78,30 +78,30 @@ void fggECSCreateScene(FggECSScene scene) {
 	}
 }
 
-const uint32_t fggECSCreateEntity() {
+const uint32_t fggCreateEntity() {
 	static uint32_t entity = 0;
 	const uint32_t _entity = entity;
 	entity++;
-	fggECSCheckEntitiesSize(_entity);
+	fggCheckEntitiesSize(_entity);
 	return _entity;
 }
 
-void fggECSDestroyEntity(FggECSScene scene, const uint32_t entity) {
+void fggDestroyEntity(FggECSScene scene, const uint32_t entity) {
 	for (uint32_t component = 0; component < FGG_ECS_MAX_COMPONENTS + FGG_ECS_SHARED_COMPONENTS; component++) {
 		free(scene[entity * FGG_ECS_MAX_ENTITIES + component]);
 		scene[entity][component] = NULL;
 	}
 }
 
-void fggECSCheckEntitiesSize(const uint32_t entity) {
+void fggCheckEntitiesSize(const uint32_t entity) {
 	assert(entity < FGG_ECS_MAX_ENTITIES);
 }
 
-void fggECSCheckComponentsSize(const uint32_t componentID) {
+void fggCheckComponentsSize(const uint32_t componentID) {
 	assert(componentID < FGG_ECS_MAX_COMPONENTS);
 }
 
-void fggECSClearScene(FggECSScene scene) {
+void fggClearScene(FggECSScene scene) {
 	free(scene);
 }
 

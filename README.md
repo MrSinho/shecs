@@ -45,20 +45,20 @@ FGG_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent, 0)
 Now you're able to call functions such as the following:
 
 ```c
-uint32_t entity = fggECSCreateEntity();
+uint32_t entity = fggCreateEntity();
 
 FggECSScene myScene;
-fggECSCreateScene(myScene); //scene handle: stores entities and components
+fggCreateScene(myScene); //scene handle: stores entities and components
 
 
-fggECSAddTransformComponent(scene, entity); //adds a new component
+fggAddTransformComponent(scene, entity); //adds a new component
 
 Transform *t = FggECSGetTransformComponent(scene, entity);
 transform->position[0] = 33.33f;
 
 printf("%f, \n"FggECSGetTransformComponent(scene, entity)->position[0]);
 
-fggECSRemoveTransformComponent(scene, entity); //removes that component
+fggRemoveTransformComponent(scene, entity); //removes that component
 
-int hasTransform = fggECSHasTransformComponent(scene, entity);
+int hasTransform = fggHasTransformComponent(scene, entity);
 ```
