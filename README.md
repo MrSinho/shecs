@@ -20,7 +20,7 @@ cmake --build .
 
 ## Implementation
 
-Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.h`](https://github.com/MrSinho/EZ-ECS/tree/main/EZ-ECS/include/EZ_ECS.h):
+Start by defining `EZ_ECS_MAX_ENTITIES` and `EZ_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`EZ_ECS.h`](https://github.com/MrSinho/EZ-ECS/tree/main/EZ-ECS/include/FggECS.h):
 
 ```c
 #define EZ_ECS_MAX_ENTITIES 10
