@@ -1,4 +1,4 @@
-# EZ-ECS
+# FggECS
 
 A header only Entity Component System written in C. 
 
