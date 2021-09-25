@@ -44,7 +44,7 @@ FGG_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
 
 int main() {
 	
-	fggScene scene;
+	FggScene scene;
 	fggCreateScene(scene);
 
 	const uint32_t entity0 = fggCreateEntity();

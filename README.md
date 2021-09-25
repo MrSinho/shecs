@@ -47,7 +47,7 @@ Now you're able to call functions such as the following:
 ```c
 uint32_t entity = fggCreateEntity();
 
-fggScene myScene;
+FggScene myScene;
 fggCreateScene(myScene); //scene handle: stores entities and components
 
 
