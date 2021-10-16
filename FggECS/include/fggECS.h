@@ -106,7 +106,7 @@ void fggCheckComponentsSize(const uint32_t componentID) {
 }
 
 void fggClearScene(FggScene* scene) {
-	memset(scene->matrix, NULL, sizeof(FggSceneMatrix));
+	memset((void*)scene->matrix, 0, sizeof(FggSceneMatrix));
 }
 
 #endif
