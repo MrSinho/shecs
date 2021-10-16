@@ -107,6 +107,7 @@ void fggCheckComponentsSize(const uint32_t componentID) {
 
 void fggClearScene(FggScene* scene) {
 	memset((void*)scene->matrix, 0, sizeof(FggSceneMatrix));
+	scene->entity_count = 0;
 }
 
 #endif
