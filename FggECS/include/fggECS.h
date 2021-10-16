@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include <memory.h>
 
 #ifndef FGG_ECS_MAX_ENTITIES
 #define FGG_ECS_MAX_ENTITIES 64
@@ -19,12 +19,12 @@
 #define FGG_ECS_SHARED_COMPONENTS FGG_ECS_MAX_COMPONENTS
 #endif
 
-//typedef void* FggScene[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS + FGG_ECS_SHARED_COMPONENTS];
+typedef void* FggSceneMatrix[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS + FGG_ECS_SHARED_COMPONENTS];
 
 typedef struct FggScene {
 
 	uint32_t entity_count;
-	void* matrix[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS + FGG_ECS_SHARED_COMPONENTS];
+	FggSceneMatrix matrix;
 
 } FggScene;
 
@@ -106,7 +106,7 @@ void fggCheckComponentsSize(const uint32_t componentID) {
 }
 
 void fggClearScene(FggScene* scene) {
-	free(scene->matrix);
+	memset(scene->matrix, NULL, sizeof(FggSceneMatrix));
 }
 
 #endif

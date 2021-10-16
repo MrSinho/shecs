@@ -74,7 +74,7 @@ int main() {
 	printf("Transform size %i \n", fggTransformSize);
 	printf("Transform id %i \n", fggTransformID);
 
-	for (uint32_t entity = 0; entity < FGG_ECS_MAX_ENTITIES; entity++) {
+	for (uint32_t entity = 0; entity < scene.entity_count; entity++) {
 		if (fggHasTransform(&scene, entity) && !fggIsTransformShared(&scene, entity)) {
 			printf("%f\n", fggGetTransform(&scene, entity)->position[0]);
 		}
@@ -89,6 +89,7 @@ int main() {
 		}
 	}
 
+	fggClearScene(&scene);
 	system("pause");
 
 	return 0;
