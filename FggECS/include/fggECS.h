@@ -20,12 +20,13 @@
 #endif //_MSC_VER
 
 typedef void* FggSceneMatrix[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS];
+typedef uint32_t ComponentCountMatrix[FGG_ECS_MAX_COMPONENTS];
 
 typedef struct FggScene {
 
 	uint32_t entity_count;
 	FggSceneMatrix matrix;
-	uint32_t componentCount[FGG_ECS_MAX_COMPONENTS];
+	ComponentCountMatrix componentCount;
 } FggScene;
 
 #define FGG_ECS_MAKE_COMPONENT_DEFINITIONS(x, n) \
@@ -118,7 +119,9 @@ void fggCheckComponentsSize(const uint32_t componentID) {
 
 void fggClearScene(FggScene* scene) {
 	memset((void*)scene->matrix, 0, sizeof(FggSceneMatrix));
+	memset((void*)scene->componentCount, 0, sizeof(ComponentCountMatrix));
 	scene->entity_count = 0;
+	
 }
 
 #endif
