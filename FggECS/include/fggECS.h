@@ -40,7 +40,7 @@ static x* fggSet ## x(FggScene* scene, x* component, const uint32_t entity, cons
 	fggCheckComponentsSize(fgg ## x ## ID);\
 	scene->matrix[entity][fgg ## x ## ID] == NULL && scene->componentCount[fgg ## x ## ID]++;\
 	scene->matrix[entity][fgg ## x ## ID] = component;\
-	if (shared <= 0) { memcpy(scene->matrix[entity][fgg ## x ## ID], component, sizeof(x)); }\
+	if (shared <= 0) { memcpy(&scene->matrix[entity][fgg ## x ## ID], component, sizeof(x)); }\
 	else { scene->matrix[entity][fgg ## x ## ID] = shared; }\
 	return component;\
 }\
