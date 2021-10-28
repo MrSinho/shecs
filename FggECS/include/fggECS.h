@@ -15,6 +15,10 @@
 #define FGG_ECS_MAX_COMPONENTS 32
 #endif
 
+#ifdef _MSC_VER
+#pragma warning ( disable : 6262 )
+#endif //_MSC_VER
+
 typedef void* FggSceneMatrix[FGG_ECS_MAX_ENTITIES][FGG_ECS_MAX_COMPONENTS];
 
 typedef struct FggScene {
@@ -35,17 +39,13 @@ static x* fggAdd ## x(FggScene* scene, const uint32_t entity) { \
 	scene->componentCount[fgg ## x ## ID]++;\
 	return component;\
 } \
-static x* fggSet ## x(FggScene* scene, x* component, const uint32_t entity, const int shared) {\
+static x* fggSet ## x(FggScene* scene, x* component, const uint32_t entity) {\
 	fggCheckEntitiesSize(entity);\
 	fggCheckComponentsSize(fgg ## x ## ID);\
 	scene->matrix[entity][fgg ## x ## ID] == NULL && scene->componentCount[fgg ## x ## ID]++;\
 	scene->matrix[entity][fgg ## x ## ID] = component;\
-	if (shared <= 0) { memcpy(&scene->matrix[entity][fgg ## x ## ID], component, sizeof(x)); }\
-	else { scene->matrix[entity][fgg ## x ## ID] = component; }\
+	scene->matrix[entity][fgg ## x ## ID] = component;\
 	return component;\
-}\
-static int fggIs ## x ## Shared(FggScene* scene, const uint32_t entity) {\
-		return !(scene->matrix[entity][fgg ## x ## ID] == NULL); \
 }\
 static int fggHas ## x(const FggScene* scene, const uint32_t entity) { \
 	return !(scene->matrix[entity][fgg ## x ## ID] == NULL); \
@@ -61,7 +61,19 @@ static void fggRemove ## x(FggScene* scene, const uint32_t entity) { \
 static uint32_t fggGet ## x ## Count(const FggScene scene) {\
 	return scene.componentCount[fgg ## x ## ID];\
 }\
-
+static x* fggGet ## x ## Array(const FggScene* scene) {\
+	x* arr = calloc(fggGet ## x ## Count(*scene), sizeof(x));\
+	if (arr == NULL) { return NULL; }\
+	uint32_t i = 0;\
+	for (uint32_t entity = 0; entity < scene->entity_count; entity++) {\
+		if (fggHas ## x(scene, entity)) {\
+			x* comp_ptr = fggGet ## x(scene, entity);\
+			arr[i] = *comp_ptr;\
+			i++;\
+		}\
+	}\
+	return arr;\
+}\
 
 static void fggCreateScene(FggScene* scene);
 
