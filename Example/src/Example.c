@@ -64,16 +64,17 @@ int main() {
 	//entity1 stuff
 	fggAddPlayer(&scene, entity1)->intelligence = -20;
 
-	Material mat = { 1, "myShader.spv" };
-	fggSetMaterial(&scene, &mat, entity0);
-	fggSetMaterial(&scene, &mat, entity1);
-
-	mat.color = 2;
-	mat.shaderPath = "lol";
+	Material* mat = calloc(1, sizeof(Material)); 
+	if (mat == NULL) { return -1; };
+	mat->color = 1;
+	mat->shaderPath = "myShader.spv";
+	fggSetMaterial(&scene, mat, entity0, 0);
+	fggSetMaterial(&scene, mat, entity1, 0);
 
 	printf("Transform size %i \n", fggTransformSize);
 	printf("Transform id %i \n", fggTransformID);
-
+		
+	printf("SCENE LOOP: \n");
 	for (uint32_t entity = 0; entity < scene.entity_count; entity++) {
 		if (fggHasTransform(&scene, entity) && !fggIsTransformShared(&scene, entity)) {
 			printf("%f\n", fggGetTransform(&scene, entity)->position[0]);
@@ -88,6 +89,9 @@ int main() {
 			printf("%i, %s\n", fggGetMaterial(&scene, entity)->color, fggGetMaterial(&scene, entity)->shaderPath);
 		}
 	}
+	printf("COMPONENTS COUNT: ");
+	printf("Transform: %i,\nCamera: %i,\nPlayer: %i,\nMaterial: %i\n", 
+			fggGetTransformCount(scene), fggGetCameraCount(scene), fggGetPlayerCount(scene), fggGetMaterialCount(scene));
 
 	fggClearScene(&scene);
 	system("pause");
