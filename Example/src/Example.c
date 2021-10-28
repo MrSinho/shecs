@@ -70,22 +70,21 @@ int main() {
 	mat->shaderPath = "myShader.spv";
 	fggSetMaterial(&scene, mat, entity0, 0);
 	fggSetMaterial(&scene, mat, entity1, 0);
-
 	printf("Transform size %i \n", fggTransformSize);
 	printf("Transform id %i \n", fggTransformID);
 		
 	printf("SCENE LOOP: \n");
 	for (uint32_t entity = 0; entity < scene.entity_count; entity++) {
-		if (fggHasTransform(&scene, entity) && !fggIsTransformShared(&scene, entity)) {
+		if (fggHasTransform(&scene, entity)) {
 			printf("%f\n", fggGetTransform(&scene, entity)->position[0]);
 		}
-		if (fggHasCamera(&scene, entity) && !fggIsCameraShared(&scene, entity)) {
+		if (fggHasCamera(&scene, entity)) {
 			printf("%f\n", fggGetCamera(&scene, entity)->FOV);
 		}
-		if (fggHasPlayer(&scene, entity) && !fggIsPlayerShared(&scene, entity)) {
+		if (fggHasPlayer(&scene, entity)) {
 			printf("%i\n", fggGetPlayer(&scene, entity)->intelligence);
 		}
-		if (fggHasMaterial(&scene, entity) && fggIsMaterialShared(&scene, entity)) {
+		if (fggHasMaterial(&scene, entity)) {
 			printf("%i, %s\n", fggGetMaterial(&scene, entity)->color, fggGetMaterial(&scene, entity)->shaderPath);
 		}
 	}
