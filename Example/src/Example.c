@@ -68,8 +68,8 @@ int main() {
 	if (mat == NULL) { return -1; };
 	mat->color = 1;
 	mat->shaderPath = "myShader.spv";
-	fggSetMaterial(&scene, mat, entity0, 0);
-	fggSetMaterial(&scene, mat, entity1, 0);
+	fggSetMaterial(&scene, mat, entity0);
+	fggSetMaterial(&scene, mat, entity1);
 	printf("Transform size %i \n", fggTransformSize);
 	printf("Transform id %i \n", fggTransformID);
 		
