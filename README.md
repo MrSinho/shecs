@@ -4,7 +4,7 @@ A header only Entity Component System written in C.
 
 ## Build status:
 
-Linux: [![Build Status](https://travis-ci.com/MrSinho/FggECS.svg?branch=main)](https://travis-ci.com/MrSinho/FggECS)
+Linux: ![status_badge](./ShCI/status.svg)
 
 ## Example:
 
