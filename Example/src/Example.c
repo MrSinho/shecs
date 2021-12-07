@@ -1,7 +1,7 @@
 #define SH_ECS_MAX_ENTITIES 256 //is the maximum number of entities used in total
 #define SH_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
 
-#include <shECS.h>
+#include <ShECS.h>
 #include<stdio.h>
 
 
