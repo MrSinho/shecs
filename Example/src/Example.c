@@ -1,7 +1,7 @@
-#define FGG_ECS_MAX_ENTITIES 256 //is the maximum number of entities used in total
-#define FGG_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
+#define SH_ECS_MAX_ENTITIES 256 //is the maximum number of entities used in total
+#define SH_ECS_MAX_COMPONENTS 10 //is the maximum number of component *types* used in total
 
-#include <fggECS.h>
+#include <shECS.h>
 #include<stdio.h>
 
 
@@ -13,7 +13,7 @@ typedef struct Camera {
 	float f;
 
 } Camera;
-FGG_ECS_MAKE_COMPONENT_DEFINITIONS(Camera, 0)
+SH_ECS_MAKE_COMPONENT_DEFINITIONS(Camera, 0)
 
 typedef struct Transform {
 	
@@ -22,7 +22,7 @@ typedef struct Transform {
 	float scale[3];
 
 } Transform;
-FGG_ECS_MAKE_COMPONENT_DEFINITIONS(Transform, 1)
+SH_ECS_MAKE_COMPONENT_DEFINITIONS(Transform, 1)
 
 typedef struct Player {
 
@@ -32,7 +32,7 @@ typedef struct Player {
 	int vitality;
 
 } Player;
-FGG_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
+SH_ECS_MAKE_COMPONENT_DEFINITIONS(Player, 2)
 
 typedef struct Material {
 	
@@ -40,59 +40,59 @@ typedef struct Material {
 	const char* shaderPath;
 
 } Material;
-FGG_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
+SH_ECS_MAKE_COMPONENT_DEFINITIONS(Material, 3)
 
 int main() {
 	
-	FggScene scene = { 0 };
-	fggCreateScene(&scene);
+	ShScene scene = { 0 };
+	shCreateScene(&scene);
 
-	const uint32_t entity0 = fggCreateEntity(&scene);
-	const uint32_t entity1 = fggCreateEntity(&scene);
-	const uint32_t entity2 = fggCreateEntity(&scene);
-	const uint32_t entity3 = fggCreateEntity(&scene);
+	const uint32_t entity0 = shCreateEntity(&scene);
+	const uint32_t entity1 = shCreateEntity(&scene);
+	const uint32_t entity2 = shCreateEntity(&scene);
+	const uint32_t entity3 = shCreateEntity(&scene);
 	
 	printf("Entities: %i, %i, %i, %i\n", entity0, entity1, entity2, entity3);
-	printf("Camera component ID: %i\n", fggCameraID);
-	printf("Transform component ID: %i\n", fggTransformID);
-	printf("Player component ID: %i\n", fggPlayerID);
+	printf("Camera component ID: %i\n", shCameraID);
+	printf("Transform component ID: %i\n", shTransformID);
+	printf("Player component ID: %i\n", shPlayerID);
 
 	//entity0 stuff
-	fggAddTransform(&scene, entity0)->position[0] = 33.33f;
-	fggAddCamera(&scene, entity0)->FOV = 45.0f;
+	shAddTransform(&scene, entity0)->position[0] = 33.33f;
+	shAddCamera(&scene, entity0)->FOV = 45.0f;
 	
 	//entity1 stuff
-	fggAddPlayer(&scene, entity1)->intelligence = -20;
+	shAddPlayer(&scene, entity1)->intelligence = -20;
 
 	Material* mat = calloc(1, sizeof(Material)); 
 	if (mat == NULL) { return -1; };
 	mat->color = 1;
 	mat->shaderPath = "myShader.spv";
-	fggSetMaterial(&scene, mat, entity0);
-	fggSetMaterial(&scene, mat, entity1);
-	printf("Transform size %i \n", fggTransformSize);
-	printf("Transform id %i \n", fggTransformID);
+	shSetMaterial(&scene, mat, entity0);
+	shSetMaterial(&scene, mat, entity1);
+	printf("Transform size %i \n", shTransformSize);
+	printf("Transform id %i \n", shTransformID);
 		
 	printf("SCENE LOOP: \n");
 	for (uint32_t entity = 0; entity < scene.entity_count; entity++) {
-		if (fggHasTransform(&scene, entity)) {
-			printf("%f\n", fggGetTransform(&scene, entity)->position[0]);
+		if (shHasTransform(&scene, entity)) {
+			printf("%f\n", shGetTransform(&scene, entity)->position[0]);
 		}
-		if (fggHasCamera(&scene, entity)) {
-			printf("%f\n", fggGetCamera(&scene, entity)->FOV);
+		if (shHasCamera(&scene, entity)) {
+			printf("%f\n", shGetCamera(&scene, entity)->FOV);
 		}
-		if (fggHasPlayer(&scene, entity)) {
-			printf("%i\n", fggGetPlayer(&scene, entity)->intelligence);
+		if (shHasPlayer(&scene, entity)) {
+			printf("%i\n", shGetPlayer(&scene, entity)->intelligence);
 		}
-		if (fggHasMaterial(&scene, entity)) {
-			printf("%i, %s\n", fggGetMaterial(&scene, entity)->color, fggGetMaterial(&scene, entity)->shaderPath);
+		if (shHasMaterial(&scene, entity)) {
+			printf("%i, %s\n", shGetMaterial(&scene, entity)->color, shGetMaterial(&scene, entity)->shaderPath);
 		}
 	}
 	printf("COMPONENTS COUNT: ");
 	printf("Transform: %i,\nCamera: %i,\nPlayer: %i,\nMaterial: %i\n", 
-			fggGetTransformCount(scene), fggGetCameraCount(scene), fggGetPlayerCount(scene), fggGetMaterialCount(scene));
+			shGetTransformCount(scene), shGetCameraCount(scene), shGetPlayerCount(scene), shGetMaterialCount(scene));
 
-	fggClearScene(&scene);
+	shClearScene(&scene);
 	system("pause");
 
 	return 0;

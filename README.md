@@ -1,4 +1,4 @@
-# FggECS
+# ShECS
 
 A header only Entity Component System written in C. 
 
@@ -10,27 +10,27 @@ Linux: ![status_badge](.ShCI/status.svg)
 
 ### Build example
 
-Use cmake to build the [`Example`](https://github.com/MrSinho/FggECS/tree/main/Example/src/Example.c):
+Use cmake to build the [`Example`](https://github.com/MrSinho/ShECS/tree/main/Example/src/Example.c):
 
 ```bash
 cmake . 
 cmake --build .
-./bin/Debug/Example
+./bin/ShECSExample
 ```
 
 ## Implementation
 
-Start by defining `FGG_ECS_MAX_ENTITIES` and `FGG_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`FGG_ECS.h`](https://github.com/MrSinho/FggECS/tree/main/FggECS/include/FggECS.h):
+Start by defining `SH_ECS_MAX_ENTITIES` and `SH_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`SH_ECS.h`](https://github.com/MrSinho/ShECS/tree/main/ShECS/include/ShECS.h):
 
 ```c
-#define FGG_ECS_MAX_ENTITIES 10
-#define FGG_ECS_MAX_COMPONENTS 20
-#include <FGG_ECS.h>
+#define SH_ECS_MAX_ENTITIES 10
+#define SH_ECS_MAX_COMPONENTS 20
+#include <SH_ECS.h>
 ``` 
 
 ### Create an entity and add a component
 
-Define your components and call the macro function `FGG_ECS_MAKE_COMPONENT_DEFINITIONS` and specify the ID you're going to give to the type. This allows to generate the required functions for using the ecs. 
+Define your components and call the macro function `SH_ECS_MAKE_COMPONENT_DEFINITIONS` and specify the ID you're going to give to the type. This allows to generate the required functions for using the ecs. 
 
 ```c
 typedef struct Transform{
@@ -39,26 +39,26 @@ typedef struct Transform{
 
 } Transform;
 
-FGG_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent, 0)
+SH_ECS_MAKE_COMPONENT_DEFINITIONS(MyComponent, 0)
 ```
 
 Now you're able to call functions such as the following:
 
 ```c
-uint32_t entity = fggCreateEntity();
+uint32_t entity = shCreateEntity();
 
-FggScene myScene;
-fggCreateScene(myScene); //scene handle: stores entities and components
+ShScene myScene;
+shCreateScene(myScene); //scene handle: stores entities and components
 
 
-fggAddTransformComponent(scene, entity); //adds a new component
+shAddTransformComponent(scene, entity); //adds a new component
 
-Transform *t = FggECSGetTransformComponent(scene, entity);
+Transform *t = ShECSGetTransformComponent(scene, entity);
 transform->position[0] = 33.33f;
 
-printf("%f, \n"FggECSGetTransformComponent(scene, entity)->position[0]);
+printf("%f, \n"ShECSGetTransformComponent(scene, entity)->position[0]);
 
-fggRemoveTransformComponent(scene, entity); //removes that component
+shRemoveTransformComponent(scene, entity); //removes that component
 
-int hasTransform = fggHasTransformComponent(scene, entity);
+int hasTransform = shHasTransformComponent(scene, entity);
 ```
