@@ -4,7 +4,8 @@ A header only Entity Component System written in C.
 
 ## Build status:
 
-Linux: ![status_badge](.ShCI/status.svg)
+![linux_badge](.ShCI/linux-status.svg)
+![windows_badge](.ShCI/windows-status.svg)
 
 ## Example:
 
