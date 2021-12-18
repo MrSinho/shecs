@@ -2,10 +2,10 @@
 
 A header only Entity Component System written in C. 
 
-## Build status:
+## [Build status](https://github.com/MrSinho/PlyImporter/.ShCI)
 
-![linux_badge](.ShCI/linux-status.svg)
-![windows_badge](.ShCI/windows-status.svg)
+[![linux_badge](.ShCI/linux-status.svg)](https://github.com/MrSinho/PlyImporter/.ShCI/linux-log.md)
+[![windows_badge](.ShCI/windows-status.svg)](https://github.com/MrSinho/PlyImporter/.ShCI/windows-log.md)
 
 ## Example:
 
