@@ -6,8 +6,7 @@
 apt install -y wget gcc cmake make gdb
 ```
 
-```bash
-$$shci call$$:
+```bash$$shci call$$:
 cd ShECS && mkdir build && cd build && cmake .. && cmake --build .
 -- The C compiler identification is GNU 11.2.0
 -- Detecting C compiler ABI info
