@@ -1,7 +1,7 @@
 # ShEcs
 ![windows_badge](windows-status.svg)
 ## [Windows build logs:](https://github.com/MrSinho/ShCI)
-  
+  `Build ran for 4.45s`
 ```bash $shci call$
 choco install -y curl mingw cmake
 Chocolatey v0.11.2
@@ -43,7 +43,7 @@ cd ShECS && mkdir build && cd build && cmake -G"MinGW Makefiles" .. && mingw32-m
 -- Detecting C compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/sino3/Desktop/GitHub/ShCI-implementation/bin/Debug/ShECS/build
+-- Build files have been written to: C:/Users/sino3/Desktop/GitHub/ShCI-implementation/bin/ShECS/build
 [ 50%] Building C object CMakeFiles/ShECSExample.dir/Example/src/Example.c.obj
 [100%] Linking C executable ..\bin\ShECSExample.exe
 [100%] Built target ShECSExample
