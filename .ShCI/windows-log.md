@@ -1,7 +1,7 @@
 # ShEcs
 ![windows_badge](windows-status.svg)
 ## [Windows build logs:](https://github.com/MrSinho/ShCI)
-  `Build ran for 4.45s`
+  `Build ran for 5.39s`
 ```bash $shci call$
 choco install -y curl mingw cmake
 Chocolatey v0.11.2
