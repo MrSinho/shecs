@@ -3,7 +3,7 @@ add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
 
 project(ShECS C)
 
-set(SH_ECS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ShECS/include)
+set(SH_ECS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #EXAMPLE 
 add_executable(ShECSExample Example/src/Example.c)
