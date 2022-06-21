@@ -33,8 +33,6 @@ cmake --build .
 
 ## Implementation
 
-Start by defining `SH_ECS_MAX_ENTITIES` and `SH_ECS_MAX_COMPONENTS` as unsigned integers of any value. Then include [`SH_ECS.h`](https://github.com/MrSinho/ShECS/tree/main/ShECS/include/ShECS.h):
-
 ```c
 #include <shecs/shEcs.h>
 ``` 
